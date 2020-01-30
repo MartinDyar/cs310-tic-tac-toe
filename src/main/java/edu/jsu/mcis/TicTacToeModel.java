@@ -76,7 +76,13 @@ public class TicTacToeModel {
         /* Initialize board by filling every square with empty marks */
         
         // INSERT YOUR CODE HERE
-        
+        for(int i = 0, i < width, i++)
+        {
+            for(int j = 0, j < width, i++)
+            {
+                board[i][j] = Mark.EMPTY;
+            }
+        }
     }
 	
     public boolean makeMark(int row, int col) {
@@ -88,9 +94,27 @@ public class TicTacToeModel {
            other player before returning TRUE.  Otherwise, return FALSE. */
         
         // INSERT YOUR CODE HERE
+        if (isValidSquare(row, col) && !isSquareMarked(row, col)) {
+
+            if (isXTurn()) {
+
+                board[row][col] = Mark.X;
+
+                xTurn = false;
+
+            } else {
+
+                board[row][col] = Mark.O;
+
+                xTurn = true;
+
+            }
+            return true;
         
-        return false; // remove this line later!
-        
+        }
+         return false;
+    }
+  
     }
 	
     private boolean isValidSquare(int row, int col) {
@@ -98,8 +122,14 @@ public class TicTacToeModel {
         /* Return TRUE if the specified location is within the bounds of the board */
         
         // INSERT YOUR CODE HERE
+        if (row < size && row > -1 && col < size && col > -1) {
 
-        return false; // remove this line later!
+            return true;
+
+        } else {
+
+            return false;
+        }
         
     }
 	
@@ -108,9 +138,15 @@ public class TicTacToeModel {
         /* Return TRUE if the square at specified location is marked */
         
         // INSERT YOUR CODE HERE
+        if (!board[row][col].equals(Mark.EMPTY)) {
 
-        return false; // remove this line later!
-            
+            return true;
+
+        } else {
+
+            return false;
+        }  
+        
     }
 	
     public Mark getMark(int row, int col) {
@@ -118,8 +154,7 @@ public class TicTacToeModel {
         /* Return the mark from the square at the specified location */
         
         // INSERT YOUR CODE HERE
-
-        return null; // remove this line later!
+        return board[row][col];
             
     }
 	
@@ -130,8 +165,23 @@ public class TicTacToeModel {
            value */
         
         // INSERT YOUR CODE HERE
+        if (isXTurn()) {
 
-        return null; // remove this line later!
+            if (isMarkWin(Mark.O)) {
+
+                return Result.O;
+
+            }
+
+        } else if (!isXTurn()) {
+
+            if (isMarkWin(Mark.X)) {
+
+                return Result.X;
+
+            }
+
+        }
         
     }
 	
@@ -141,19 +191,123 @@ public class TicTacToeModel {
            winner */
         
         // INSERT YOUR CODE HERE
+        int currentRow = 0;
+        int currentColumn = 0;
+        int horizontalCounter = 0;
+        int verticalCounter = 0;
+        int diagonalCounterLTR = 0;
+        int countedTopLeft = 0;
+        int countedBottomRight = 0;
+        int diagonalCounterRTL = 0;
+        int countedTopRight = 0;
+        int countedBottomLeft = 0;
 
-        return false; // remove this line later!
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < width; j++) {
 
-    }
-	
+                if (horizontalCounter != width) {
+                    if (currentRow == i) {
+                        if (board[i][j].equals(mark)) {
+                            horizontalCounter++;
+                        }
+                    } else {
+                        currentRow = i;
+                        horizontalCounter = 0;
+                        
+                        if (board[i][j].equals(mark)) {
+
+                            horizontalCounter++;
+                        }
+                    }
+                }
+            
+                if (verticalCounter != width) {
+                    if (currentColumn == i) {
+                        if (board[j][i].equals(mark)) {
+                            verticalCounter++;
+                        }
+                    } else {
+                        currentColumn = i;
+                        verticalCounter = 0;
+
+                        if (board[j][i].equals(mark)) {
+                            verticalCounter++;
+                        }
+
+                    }
+
+                }
+               
+                if (diagonalCounterLTR != width) {
+
+                    if (board[0][0].equals(mark) && countedTopLeft == 0) {
+                        diagonalCounterLTR++;
+                        countedTopLeft++;
+
+                    }
+                    if (board[width - 1][width - 1].equals(mark) && countedBottomRight == 0) {
+                        diagonalCounterLTR++;
+                        countedBottomRight++;
+                    }
+                    if (i < width - 1 && i > 0 && j < width - 1 && j > 0) {
+                        if (board[i][j].equals(board[i + 1][j + 1]) && board[i][j].equals(mark)) {
+                            diagonalCounterLTR++;
+
+                        }
+
+                    }
+
+                }
+                
+                if (diagonalCounterRTL != width) {
+                    if (board[0][width - 1].equals(mark) && countedTopRight == 0) {
+                        diagonalCounterRTL++;
+                        countedTopRight++;
+                    }
+                    if (board[width - 1][0].equals(mark) && countedBottomLeft == 0) {
+                        diagonalCounterRTL++;
+                        countedBottomLeft++;
+                    }
+                    if (i < width - 1 && i > 0 && j < width - 1 && j > 0) {
+
+                        if (board[i][j].equals(board[i + 1][j - 1]) && board[i][j].equals(mark)) {
+                            diagonalCounterRTL++;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        if (horizontalCounter == width) {
+            return true;
+        } else if (verticalCounter == width) {
+            return true;
+        } else if (diagonalCounterLTR == width) {
+            return true;
+        } else if (diagonalCounterRTL == width) {
+            return true;
+        } else {
+            return false;
+
+        }
+        
+    }	
     private boolean isTie() {
         
         /* Check the squares of the board to see if the game is a tie */
         
         // INSERT YOUR CODE HERE
 
-        return false; // remove this line later!
-        
+        if (numTurns == (width * width)) {
+            if (!isMarkWin(Mark.X) && !isMarkWin(Mark.O)) {
+                return true;
+            }
+        }
+        return false; 
     }
 
     public boolean isGameover() {
@@ -188,9 +342,26 @@ public class TicTacToeModel {
         /* Output the board contents as a string (see examples) */
         
         // INSERT YOUR CODE HERE
-        
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < width; j++) {
+
+                if (i == 0 && j == 0) {
+                    for (int c = 0; c < width; c++) {
+
+                        output.append(c);
+                    }
+                    output.append("\n");
+                }
+
+                if (j == 0) {
+                    output.append(i + " ");
+                }
+
+                output.append(board[i][j]);
+            }
+            output.append("\n");
+        }
+
         return output.toString();
         
     }
-    
-}
