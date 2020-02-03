@@ -78,7 +78,7 @@ public class TicTacToeModel {
         // INSERT YOUR CODE HERE
         for(int i = 0; i < width; i++)
         {
-            for(int j = 0; j < width; i++)
+            for(int j = 0; j < width; j++)
             {
                 board[i][j] = Mark.EMPTY;
             }
@@ -190,7 +190,7 @@ public class TicTacToeModel {
            int horizontal = 0;
            int downDiagonal = 0;
            int upDiagonal = 0;
-           
+
         for (int i=0; i < width; i++){
             if (horizontal != width){
                 horizontal = 0;
