@@ -12,8 +12,8 @@ public class TicTacToeModel {
     
     public enum Mark {
         
-        X("X"), 
-        O("O"), 
+        X("X"),
+        O("O"),
         EMPTY("-");
 
         private String message;
@@ -76,9 +76,9 @@ public class TicTacToeModel {
         /* Initialize board by filling every square with empty marks */
         
         // INSERT YOUR CODE HERE
-        for(int i = 0, i < width, i++)
+        for(int i = 0; i < width; i++)
         {
-            for(int j = 0, j < width, i++)
+            for(int j = 0; j < width; i++)
             {
                 board[i][j] = Mark.EMPTY;
             }
@@ -115,14 +115,14 @@ public class TicTacToeModel {
          return false;
     }
   
-    }
+    
 	
     private boolean isValidSquare(int row, int col) {
         
         /* Return TRUE if the specified location is within the bounds of the board */
         
         // INSERT YOUR CODE HERE
-        if (row < size && row > -1 && col < size && col > -1) {
+        if (row < width && row > -1 && col < width && col > -1) {
 
             return true;
 
@@ -165,22 +165,17 @@ public class TicTacToeModel {
            value */
         
         // INSERT YOUR CODE HERE
-        if (isXTurn()) {
-
-            if (isMarkWin(Mark.O)) {
-
-                return Result.O;
-
-            }
-
-        } else if (!isXTurn()) {
-
-            if (isMarkWin(Mark.X)) {
-
-                return Result.X;
-
-            }
-
+        if ((isMarkWin(Mark.X) == true)){
+            return Result.X;
+        }
+        else if (isMarkWin(Mark.O) == true){
+            return Result.O;
+        }
+        else if (isTie() == true){
+            return Result.TIE;
+        }     
+        else{
+            return Result.NONE;
         }
         
     }
@@ -191,123 +186,81 @@ public class TicTacToeModel {
            winner */
         
         // INSERT YOUR CODE HERE
-        int currentRow = 0;
-        int currentColumn = 0;
-        int horizontalCounter = 0;
-        int verticalCounter = 0;
-        int diagonalCounterLTR = 0;
-        int countedTopLeft = 0;
-        int countedBottomRight = 0;
-        int diagonalCounterRTL = 0;
-        int countedTopRight = 0;
-        int countedBottomLeft = 0;
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < width; j++) {
-
-                if (horizontalCounter != width) {
-                    if (currentRow == i) {
-                        if (board[i][j].equals(mark)) {
-                            horizontalCounter++;
-                        }
-                    } else {
-                        currentRow = i;
-                        horizontalCounter = 0;
-                        
-                        if (board[i][j].equals(mark)) {
-
-                            horizontalCounter++;
-                        }
+        int vertical = 0;
+           int horizontal = 0;
+           int downDiagonal = 0;
+           int upDiagonal = 0;
+           
+        for (int i=0; i < width; i++){
+            if (horizontal != width){
+                horizontal = 0;
+                for (int j=0; j < width; j++){
+                    if(board[i][j] == mark){
+                        horizontal = horizontal + 1;
                     }
                 }
-            
-                if (verticalCounter != width) {
-                    if (currentColumn == i) {
-                        if (board[j][i].equals(mark)) {
-                            verticalCounter++;
-                        }
-                    } else {
-                        currentColumn = i;
-                        verticalCounter = 0;
-
-                        if (board[j][i].equals(mark)) {
-                            verticalCounter++;
-                        }
-
-                    }
-
-                }
-               
-                if (diagonalCounterLTR != width) {
-
-                    if (board[0][0].equals(mark) && countedTopLeft == 0) {
-                        diagonalCounterLTR++;
-                        countedTopLeft++;
-
-                    }
-                    if (board[width - 1][width - 1].equals(mark) && countedBottomRight == 0) {
-                        diagonalCounterLTR++;
-                        countedBottomRight++;
-                    }
-                    if (i < width - 1 && i > 0 && j < width - 1 && j > 0) {
-                        if (board[i][j].equals(board[i + 1][j + 1]) && board[i][j].equals(mark)) {
-                            diagonalCounterLTR++;
-
-                        }
-
-                    }
-
-                }
-                
-                if (diagonalCounterRTL != width) {
-                    if (board[0][width - 1].equals(mark) && countedTopRight == 0) {
-                        diagonalCounterRTL++;
-                        countedTopRight++;
-                    }
-                    if (board[width - 1][0].equals(mark) && countedBottomLeft == 0) {
-                        diagonalCounterRTL++;
-                        countedBottomLeft++;
-                    }
-                    if (i < width - 1 && i > 0 && j < width - 1 && j > 0) {
-
-                        if (board[i][j].equals(board[i + 1][j - 1]) && board[i][j].equals(mark)) {
-                            diagonalCounterRTL++;
-                        }
-
-                    }
-
-                }
-
             }
-
-        }
-
-        if (horizontalCounter == width) {
-            return true;
-        } else if (verticalCounter == width) {
-            return true;
-        } else if (diagonalCounterLTR == width) {
-            return true;
-        } else if (diagonalCounterRTL == width) {
-            return true;
-        } else {
-            return false;
-
         }
         
-    }	
+        for (int j=0; j < width; j++){
+            if (vertical != width){
+                vertical = 0;
+                for (int i=0; i < width; i++){
+                    if(board[i][j] == mark){
+                        vertical = vertical + 1;
+                    }
+                }
+            }
+        }
+      
+        for (int j = 0; j <width;j++){
+            if(board[j][j] == mark){
+                downDiagonal = downDiagonal + 1;
+            }
+        }
+       
+        for (int j = 0; j < width;j++){
+            if(board[j][width-j-1] == mark){
+                upDiagonal = upDiagonal + 1;
+            }
+        }
+        
+        if (vertical == width){
+            return true;
+        }
+        else if (horizontal == width){
+            return true;
+        }
+        else if (downDiagonal == width){
+            return true;
+        }
+        else if (upDiagonal == width){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     private boolean isTie() {
         
         /* Check the squares of the board to see if the game is a tie */
         
         // INSERT YOUR CODE HERE
-
-        if (numTurns == (width * width)) {
-            if (!isMarkWin(Mark.X) && !isMarkWin(Mark.O)) {
-                return true;
+        int count = 0;
+        
+        for (int i=0; i < width; i++){
+            for (int j=0; j < width; j++){
+                if (board[i][j] == Mark.EMPTY){
+                    count = count + 1;
+                }
             }
         }
-        return false; 
+        if (count == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean isGameover() {
@@ -344,24 +297,19 @@ public class TicTacToeModel {
         // INSERT YOUR CODE HERE
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
-
                 if (i == 0 && j == 0) {
                     for (int c = 0; c < width; c++) {
-
                         output.append(c);
                     }
                     output.append("\n");
                 }
-
                 if (j == 0) {
                     output.append(i + " ");
                 }
-
                 output.append(board[i][j]);
             }
             output.append("\n");
         }
-
         return output.toString();
-        
     }
+}
