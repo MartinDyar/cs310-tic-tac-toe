@@ -38,7 +38,6 @@ public class TicTacToeController implements ActionListener {
         String name = ((JButton) event.getSource()).getName();
         int row = Integer.parseInt(name.substring(6,7));
         int col = Integer.parseInt(name.substring(7));
-        System.out.println(row + " " + col);
         
         model.makeMark(row, col);
         view.updateSquares();
