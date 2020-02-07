@@ -48,7 +48,7 @@ public class TicTacToeView extends JPanel {
 
         // INSERT YOUR CODE HERE
         for (int row = 0; row < controller.getWidth(); row++){
-            for (int col = 0; row < controller.getWidth(); col++){
+            for (int col = 0; col < controller.getWidth(); col++){
                 board[row][col].setText(controller.getMarkAsString(row, col));
             }
         }
@@ -60,7 +60,7 @@ public class TicTacToeView extends JPanel {
     
         // INSERT YOUR CODE HERE
         for (int row = 0; row < controller.getWidth(); row++){
-            for (int col = 0; row < controller.getWidth(); col++){
+            for (int col = 0; col < controller.getWidth(); col++){
                 board[row][col].setEnabled(false);
             }
         }

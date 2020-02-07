@@ -16,7 +16,7 @@ public class TicTacToeController implements ActionListener {
         /* Initialize model, view, and width */
 
         model = new TicTacToeModel(width);
-        view = new TicTacToeView();
+        view = new TicTacToeView(this, width);
         
     }
 
@@ -28,13 +28,17 @@ public class TicTacToeController implements ActionListener {
         return view;       
     }
 
+    public int getWidth() {
+        return model.getWidth();
+    }
+
     @Override
     public void actionPerformed(ActionEvent event) {
         // INSERT YOUR CODE HERE
         String name = ((JButton) event.getSource()).getName();
-        String[] array = name.split(", ");
-        int row = Integer.parseInt(array[1]);
-        int col = Integer.parseInt(array[2]);
+        int row = Integer.parseInt(name.substring(6,7));
+        int col = Integer.parseInt(name.substring(7));
+        System.out.println(row + " " + col);
         
         model.makeMark(row, col);
         view.updateSquares();
@@ -50,13 +54,6 @@ public class TicTacToeController implements ActionListener {
         {
             view.clearResult();
         }
-    }   
-    
-    view.updateSquares();
-    
-    if (model.isGameover())
-    {
-        view.disableSquares();
-        view.showResult(model.getResult().toString());
     }
+    
 }
