@@ -123,11 +123,10 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
         if (row < width && row > -1 && col < width && col > -1) {
-
             return true;
-
-        } else {
-
+        } 
+        else 
+        {
             return false;
         }
         
@@ -138,12 +137,12 @@ public class TicTacToeModel {
         /* Return TRUE if the square at specified location is marked */
         
         // INSERT YOUR CODE HERE
-        if (!board[row][col].equals(Mark.EMPTY)) {
-
+        if (!board[row][col].equals(Mark.EMPTY))
+        {
             return true;
-
-        } else {
-
+        } 
+        else 
+        {
             return false;
         }  
         
@@ -165,16 +164,19 @@ public class TicTacToeModel {
            value */
         
         // INSERT YOUR CODE HERE
-        if ((isMarkWin(Mark.X) == true)){
+        if ((isMarkWin(Mark.X) == true))
+        {
             return Result.X;
         }
-        else if (isMarkWin(Mark.O) == true){
+        else if (isMarkWin(Mark.O) == true)
+        {
             return Result.O;
         }
         else if (isTie() == true){
             return Result.TIE;
         }     
-        else{
+        else
+        {
             return Result.NONE;
         }
         
@@ -187,57 +189,74 @@ public class TicTacToeModel {
         
         // INSERT YOUR CODE HERE
         int vertical = 0;
-           int horizontal = 0;
-           int downDiagonal = 0;
-           int upDiagonal = 0;
+        int horizontal = 0;
+        int downDiagonal = 0;
+        int upDiagonal = 0;
 
-        for (int i=0; i < width; i++){
-            if (horizontal != width){
+        for (int i=0; i < width; i++)
+        {
+            if (horizontal != width)
+            {
                 horizontal = 0;
-                for (int j=0; j < width; j++){
-                    if(board[i][j] == mark){
+                for (int j=0; j < width; j++)
+                {
+                    if(board[i][j] == mark)
+                    {
                         horizontal = horizontal + 1;
                     }
                 }
             }
         }
         
-        for (int j=0; j < width; j++){
-            if (vertical != width){
+        for (int j=0; j < width; j++)
+        {
+            if (vertical != width)
+            {
                 vertical = 0;
-                for (int i=0; i < width; i++){
-                    if(board[i][j] == mark){
+                for (int i=0; i < width; i++)
+                {
+                    if(board[i][j] == mark)
+                    {
                         vertical = vertical + 1;
                     }
                 }
             }
         }
       
-        for (int j = 0; j <width;j++){
-            if(board[j][j] == mark){
+        for (int j = 0; j <width;j++)
+        {
+            if(board[j][j] == mark)
+            {
                 downDiagonal = downDiagonal + 1;
             }
         }
        
-        for (int j = 0; j < width;j++){
-            if(board[j][width-j-1] == mark){
+        for (int j = 0; j < width;j++)
+        {
+            if(board[j][width-j-1] == mark)
+            {
                 upDiagonal = upDiagonal + 1;
             }
         }
         
-        if (vertical == width){
+        if (vertical == width)
+        {
             return true;
         }
-        else if (horizontal == width){
+        else if (horizontal == width)
+        {
             return true;
         }
-        else if (downDiagonal == width){
+        else if (downDiagonal == width)
+        {
             return true;
         }
-        else if (upDiagonal == width){
+        else if (upDiagonal == width)
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
@@ -248,17 +267,22 @@ public class TicTacToeModel {
         // INSERT YOUR CODE HERE
         int count = 0;
         
-        for (int i=0; i < width; i++){
-            for (int j=0; j < width; j++){
-                if (board[i][j] == Mark.EMPTY){
+        for (int i=0; i < width; i++)
+        {
+            for (int j=0; j < width; j++)
+            {
+                if (board[i][j] == Mark.EMPTY)
+                {
                     count = count + 1;
                 }
             }
         }
-        if (count == 0){
+        if (count == 0)
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
@@ -295,15 +319,20 @@ public class TicTacToeModel {
         /* Output the board contents as a string (see examples) */
         
         // INSERT YOUR CODE HERE
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < width; j++) {
-                if (i == 0 && j == 0) {
-                    for (int c = 0; c < width; c++) {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (i == 0 && j == 0)
+                {
+                    for (int c = 0; c < width; c++)
+                    {
                         output.append(c);
                     }
                     output.append("\n");
                 }
-                if (j == 0) {
+                if (j == 0)
+                {
                     output.append(i + " ");
                 }
                 output.append(board[i][j]);
